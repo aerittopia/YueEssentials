@@ -1,14 +1,14 @@
-package me.whereareiam.yue.essentials.command.commands;
+package com.aeritt.yue.essentials.command.commands;
 
-import me.whereareiam.yue.api.command.base.CommandBase;
-import me.whereareiam.yue.api.command.base.CommandCategory;
-import me.whereareiam.yue.api.language.LanguageService;
-import me.whereareiam.yue.api.service.PersonService;
-import me.whereareiam.yue.api.util.message.MessageBuilderUtil;
-import me.whereareiam.yue.api.util.message.MessageFormatterUtil;
-import me.whereareiam.yue.api.util.message.PlaceholderReplacement;
-import me.whereareiam.yue.essentials.config.command.CommandsConfig;
-import me.whereareiam.yue.essentials.config.command.InfoCommandConfig;
+import com.aeritt.yue.api.command.base.CommandBase;
+import com.aeritt.yue.api.command.base.CommandCategory;
+import com.aeritt.yue.api.language.LanguageService;
+import com.aeritt.yue.api.service.PersonService;
+import com.aeritt.yue.api.util.message.MessageBuilderUtil;
+import com.aeritt.yue.api.util.message.MessageFormatterUtil;
+import com.aeritt.yue.api.util.message.PlaceholderReplacement;
+import com.aeritt.yue.essentials.config.command.CommandsConfig;
+import com.aeritt.yue.essentials.config.command.InfoCommandConfig;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

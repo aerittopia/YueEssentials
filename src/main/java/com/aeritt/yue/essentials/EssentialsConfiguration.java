@@ -1,4 +1,4 @@
-package me.whereareiam.yue.essentials;
+package com.aeritt.yue.essentials;
 
 import org.pf4j.PluginWrapper;
 import org.springframework.beans.factory.annotation.Autowired;

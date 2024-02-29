@@ -1,8 +1,8 @@
-package me.whereareiam.yue.essentials;
+package com.aeritt.yue.essentials;
 
-import me.whereareiam.yue.api.YuePlugin;
-import me.whereareiam.yue.essentials.command.CommandInitializer;
-import me.whereareiam.yue.essentials.config.ConfigManager;
+import com.aeritt.yue.api.YuePlugin;
+import com.aeritt.yue.essentials.command.CommandInitializer;
+import com.aeritt.yue.essentials.config.ConfigManager;
 import org.pf4j.PluginWrapper;
 import org.pf4j.spring.SpringPluginManager;
 import org.springframework.context.ApplicationContext;
@@ -47,7 +47,7 @@ public class EssentialsPlugin extends YuePlugin {
 		childContext.setParent(parentContext);
 		childContext.registerBean(PluginWrapper.class, this::getWrapper);
 		childContext.register(EssentialsConfiguration.class);
-		childContext.scan("me.whereareiam.yue.essentials");
+		childContext.scan("com.aeritt.yue.essentials");
 		childContext.refresh();
 
 		this.applicationContext = childContext;

@@ -1,7 +1,7 @@
-package me.whereareiam.yue.essentials.command;
+package com.aeritt.yue.essentials.command;
 
-import me.whereareiam.yue.api.command.base.CommandBase;
-import me.whereareiam.yue.api.command.management.CommandRegistrar;
+import com.aeritt.yue.api.command.base.CommandBase;
+import com.aeritt.yue.api.command.management.CommandRegistrar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;

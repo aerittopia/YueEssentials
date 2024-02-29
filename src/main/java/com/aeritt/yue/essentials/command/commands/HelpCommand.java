@@ -1,13 +1,13 @@
-package me.whereareiam.yue.essentials.command.commands;
+package com.aeritt.yue.essentials.command.commands;
 
-import me.whereareiam.yue.api.command.base.CommandBase;
-import me.whereareiam.yue.api.command.base.CommandCategory;
-import me.whereareiam.yue.api.command.management.CommandRegistrar;
-import me.whereareiam.yue.api.discord.DiscordButtonManager;
-import me.whereareiam.yue.api.util.message.MessageBuilderUtil;
-import me.whereareiam.yue.api.util.message.MessageFormatterUtil;
-import me.whereareiam.yue.essentials.config.command.CommandsConfig;
-import me.whereareiam.yue.essentials.config.command.HelpCommandConfig;
+import com.aeritt.yue.api.command.base.CommandBase;
+import com.aeritt.yue.api.command.base.CommandCategory;
+import com.aeritt.yue.api.command.management.CommandRegistrar;
+import com.aeritt.yue.api.discord.DiscordButtonManager;
+import com.aeritt.yue.api.util.message.MessageBuilderUtil;
+import com.aeritt.yue.api.util.message.MessageFormatterUtil;
+import com.aeritt.yue.essentials.config.command.CommandsConfig;
+import com.aeritt.yue.essentials.config.command.HelpCommandConfig;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;

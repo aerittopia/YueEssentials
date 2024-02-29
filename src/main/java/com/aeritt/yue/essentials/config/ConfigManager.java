@@ -1,8 +1,8 @@
-package me.whereareiam.yue.essentials.config;
+package com.aeritt.yue.essentials.config;
 
-import me.whereareiam.yue.api.config.ConfigService;
-import me.whereareiam.yue.essentials.config.command.CommandsConfig;
-import me.whereareiam.yue.essentials.config.setting.SettingsConfig;
+import com.aeritt.yue.api.config.ConfigService;
+import com.aeritt.yue.essentials.config.command.CommandsConfig;
+import com.aeritt.yue.essentials.config.setting.SettingsConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

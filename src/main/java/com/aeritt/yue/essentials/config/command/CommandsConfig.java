@@ -1,4 +1,4 @@
-package me.whereareiam.yue.essentials.config.command;
+package com.aeritt.yue.essentials.config.command;
 
 import lombok.Getter;
 

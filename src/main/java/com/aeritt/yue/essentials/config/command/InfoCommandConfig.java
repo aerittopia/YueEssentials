@@ -1,7 +1,7 @@
-package me.whereareiam.yue.essentials.config.command;
+package com.aeritt.yue.essentials.config.command;
 
+import com.aeritt.yue.api.command.base.CommandCategory;
 import lombok.Getter;
-import me.whereareiam.yue.api.command.base.CommandCategory;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -26,7 +26,7 @@
 
         <!-- Plugin properties -->
         <plugin.id>essentials</plugin.id>
-        <plugin.class>me.whereareiam.yue.essentials.EssentialsPlugin</plugin.class>
+        <plugin.class>com.aeritt.yue.essentials.EssentialsPlugin</plugin.class>
         <plugin.version>0.0.1</plugin.version>
         <plugin.provider>whereareiam</plugin.provider>
         <plugin.dependencies/>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.github.aerittopia</groupId>
             <artifactId>Yue</artifactId>
-            <version>dev-SNAPSHOT</version>
+            <version>dev-de97afe2ea-1</version>
         </dependency>
         <dependency>
             <groupId>org.pf4j</groupId>
