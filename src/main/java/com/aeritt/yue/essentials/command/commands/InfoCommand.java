@@ -9,6 +9,7 @@ import com.aeritt.yue.api.util.message.MessageFormatterUtil;
 import com.aeritt.yue.api.util.message.PlaceholderReplacement;
 import com.aeritt.yue.essentials.config.command.CommandsConfig;
 import com.aeritt.yue.essentials.config.command.InfoCommandConfig;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -39,15 +40,18 @@ public class InfoCommand extends CommandBase {
 	private final OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
 	private final RuntimeMXBean runtimeBean = ManagementFactory.getRuntimeMXBean();
 	private final MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+	private final JDA jda;
 
 	@Autowired
 	public InfoCommand(MessageFormatterUtil messageFormatterUtil, CommandsConfig commandsConfig,
-	                   MessageBuilderUtil messageBuilderUtil, LanguageService languageService, PersonService personService) {
+	                   MessageBuilderUtil messageBuilderUtil, LanguageService languageService,
+	                   PersonService personService, @Lazy JDA jda) {
 		this.messageFormatterUtil = messageFormatterUtil;
 		this.infoCommand = commandsConfig.getInfoCommand();
 		this.messageBuilderUtil = messageBuilderUtil;
 		this.languageService = languageService;
 		this.personService = personService;
+		this.jda = jda;
 	}
 
 	@Override
@@ -73,13 +77,17 @@ public class InfoCommand extends CommandBase {
 		String uptime = String.format("%.1f", runtimeBean.getUptime() / 1000.0 / 60.0 / 60.0);
 		String usersCount = String.valueOf(personService.getUserCount());
 		final String languages = String.join(", ", languageService.getTranslations().keySet());
+		final String latency = String.valueOf(jda.getGatewayPing());
 
 		return new PlaceholderReplacement(
 				List.of("{osName}", "{osVersion}", "{osArch}", "{cpuLoad}", "{cpuCores}",
 						"{memoryUsage}", "{memoryTotal}", "{memoryUsagePercentage}", "{uptime}",
-						"{usersCount}", "{languages}"),
-				List.of(System.getProperty("os.name"), System.getProperty("os.version"), System.getProperty("os.arch"),
-						cpuLoad, cpuCores, memoryUsage, memoryTotal, memoryUsagePercentage, uptime, usersCount, languages)
+						"{usersCount}", "{languages}", "{latency}"
+				),
+				List.of(System.getProperty("os.name"), System.getProperty("os.version"),
+						System.getProperty("os.arch"), cpuLoad, cpuCores, memoryUsage, memoryTotal,
+						memoryUsagePercentage, uptime, usersCount, languages, latency
+				)
 		);
 	}
 
@@ -90,7 +98,6 @@ public class InfoCommand extends CommandBase {
 	private long getTotalMemory() {
 		return memoryBean.getHeapMemoryUsage().getMax() / 1024 / 1024;
 	}
-
 
 	@Override
 	public List<String> getCommandAliases() {

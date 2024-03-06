@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.github.aerittopia</groupId>
             <artifactId>Yue</artifactId>
-            <version>dev-de97afe2ea-1</version>
+            <version>dev-39c881e7f3-1</version>
         </dependency>
         <dependency>
             <groupId>org.pf4j</groupId>

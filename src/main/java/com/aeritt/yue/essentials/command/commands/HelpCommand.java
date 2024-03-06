@@ -4,12 +4,12 @@ import com.aeritt.yue.api.command.base.CommandBase;
 import com.aeritt.yue.api.command.base.CommandCategory;
 import com.aeritt.yue.api.command.management.CommandRegistrar;
 import com.aeritt.yue.api.discord.DiscordButtonManager;
+import com.aeritt.yue.api.discord.member.DiscordMemberManager;
 import com.aeritt.yue.api.util.message.MessageBuilderUtil;
 import com.aeritt.yue.api.util.message.MessageFormatterUtil;
 import com.aeritt.yue.essentials.config.command.CommandsConfig;
 import com.aeritt.yue.essentials.config.command.HelpCommandConfig;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.User;
@@ -32,22 +32,22 @@ import java.util.Optional;
 @Component
 public class HelpCommand extends CommandBase {
 	private final MessageFormatterUtil messageFormatterUtil;
-	private final HelpCommandConfig helpCommand;
 	private final MessageBuilderUtil messageBuilderUtil;
 	private final DiscordButtonManager buttonManager;
 	private final CommandRegistrar commandRegistrar;
-	private final Guild guild;
+	private final DiscordMemberManager memberManager;
+	private final HelpCommandConfig helpCommand;
 
 	@Autowired
 	public HelpCommand(MessageFormatterUtil messageFormatterUtil, CommandsConfig commandsConfig,
 	                   MessageBuilderUtil messageBuilderUtil, DiscordButtonManager buttonManager,
-	                   CommandRegistrar commandRegistrar, @Lazy Guild guild) {
+	                   CommandRegistrar commandRegistrar, DiscordMemberManager memberManager) {
 		this.messageFormatterUtil = messageFormatterUtil;
 		this.helpCommand = commandsConfig.getHelpCommand();
 		this.messageBuilderUtil = messageBuilderUtil;
 		this.buttonManager = buttonManager;
 		this.commandRegistrar = commandRegistrar;
-		this.guild = guild;
+		this.memberManager = memberManager;
 	}
 
 	@Override
@@ -63,12 +63,13 @@ public class HelpCommand extends CommandBase {
 
 	private void buildHelpMessage(SlashCommandInteractionEvent event) {
 		User user = event.getUser();
+
 		MessageEmbed embed = messageBuilderUtil.embed(helpCommand.getEmbedId(), user, Optional.empty());
-		List<CommandCategory> allowedCategories = getAllowedCategories(guild.getMember(user));
+		List<CommandCategory> allowedCategories = getAllowedCategories(memberManager.getMember(user.getId()));
 
 		List<Button> buttons = allowedCategories.stream()
 				.map(category -> messageBuilderUtil.button(
-						category.name().toLowerCase(),
+						helpCommand.getButtonCategoryId() + category.name().toLowerCase(),
 						user)
 				).toList();
 		buttons.forEach(button -> buttonManager.addButton(button.getId(), this::buttonInteraction));
@@ -76,8 +77,8 @@ public class HelpCommand extends CommandBase {
 		List<MessageEmbed.Field> fields = allowedCategories.stream()
 				.map(category ->
 						messageBuilderUtil.field(user,
-								"core.command.general.help.message.category." + category.name().toLowerCase() + ".name",
-								"core.command.general.help.message.category." + category.name().toLowerCase() + ".value",
+								helpCommand.getFieldCategoryId() + category.name().toLowerCase() + ".name",
+								helpCommand.getFieldCategoryId() + category.name().toLowerCase() + ".value",
 								true
 						)
 				).toList();
@@ -86,15 +87,19 @@ public class HelpCommand extends CommandBase {
 		fields.forEach(embedBuilder::addField);
 
 		embed = embedBuilder.build();
-		event.getHook().sendMessageEmbeds(embed).setActionRow(buttons).queue();
+
+		if (!buttons.isEmpty())
+			event.getHook().sendMessageEmbeds(embed).setActionRow(buttons).queue();
+		else
+			event.getHook().sendMessageEmbeds(embed).queue();
 	}
 
 	private List<CommandCategory> getAllowedCategories(Member member) {
 		return commandRegistrar.getCommands().stream()
-				.filter(command -> member.getRoles().stream()
-						.anyMatch(role -> role.getId().equals(command.getRequiredRole()))
-				)
+				.filter(command -> command.getRequiredRole().isEmpty() || member.getRoles().stream()
+						.anyMatch(role -> role.getId().equals(command.getRequiredRole())))
 				.map(CommandBase::getCategory)
+				.distinct()
 				.sorted(Comparator.comparing(Enum::name))
 				.toList();
 	}

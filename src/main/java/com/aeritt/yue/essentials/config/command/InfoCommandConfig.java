@@ -14,9 +14,9 @@ public class InfoCommandConfig {
 			"botinfo"
 	);
 	private CommandCategory category = CommandCategory.UTILITY;
-	private String shortDescription = "$t{essentials.command.utility.info.shortDescription}";
-	private String fullDescription = "$t{essentials.command.utility.info.fullDescription}";
-	private String roleId = "1209471775805800478";
+	private String shortDescription = "$t{essentials.commands.categories.utility.info.shortDescription}";
+	private String fullDescription = "$t{essentials.commands.categories.utility.info.fullDescription}";
+	private String roleId = "856952987896774696";
 	private String embedId = "essentials.embed.commands.embeds.info";
 	private List<String> allowedChannels = new ArrayList<>();
 }
